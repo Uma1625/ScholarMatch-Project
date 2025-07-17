@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ScholarMatch – Matched Scholarships</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function searchScholarships() {
+      const query = document.getElementById("search").value.toLowerCase();
+      const cards = document.querySelectorAll(".scholarship-card");
+      cards.forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(query) ? "block" : "none";
+      });
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-white text-gray-800 font-sans min-h-screen">
+
+  <div class="container mx-auto px-6 py-10">
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-6 text-center">🎓 Scholarships Matching Your Profile</h1>
+
+    <!-- 🔍 Search -->
+    <div class="mb-6">
+      <input id="search" onkeyup="searchScholarships()" placeholder="Search scholarships by name, category..." 
+             class="w-full p-3 border border-blue-300 rounded-lg shadow-sm focus:ring focus:ring-blue-100">
+    </div>
+
+    <!-- 🎛️ Filters (Future use) -->
+    <form method="GET" action="" class="flex flex-wrap gap-4 justify-center mb-10">
+
+      <select name="category" class="px-4 py-2 border border-blue-200 rounded shadow-sm">
+
+        <option value="">Filter by Category</option>
+        <option value="GEN">GEN</option>
+        <option value="OBC">OBC</option>
+        <option value="SC">SC</option>
+        <option value="ST">ST</option>
+        <option value="EWS">EWS</option>
+      </select>
+
+      <select name="education" class="px-4 py-2 border border-blue-200 rounded shadow-sm">
+        <option value="">Filter by Education</option>
+        <option>5th</option>
+        <option>6th</option>
+        <option>7th</option>
+        <option>8th</option>
+        <option>9th</option>
+        <option>10th</option>
+        <option>12th</option>
+        <option>UG</option>
+        <option>PG</option>
+      </select>
+
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">🔍 Filter</button>
+    </form>
+
+    <!-- 📋 Scholarship Cards -->
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {% for s in scholarships %}
+        <div class="scholarship-card bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 relative border border-blue-100">
+          
+          {% if s.is_closing_soon %}
+            <span class="absolute top-2 right-2 bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded">⏰ Closing Soon</span>
+          {% endif %}
+
+          <h2 class="text-xl font-bold text-blue-700 mb-2">{{ s.name }}</h2>
+          <p><strong>Amount:</strong> <span class="text-green-600">{{ s.amount }}</span></p>
+          <p><strong>Deadline:</strong> {{ s.deadline }}</p>
+          <p><strong>Category:</strong> {{ s.category }}</p>
+          <p><strong>Education:</strong> {{ s.education }}</p>
+          <p><strong>State:</strong> {{ s.state }}</p>
+
+          <!-- 🔗 Apply Now button -->
+          {% if s.apply_link %}
+            <a href="{{ s.apply_link }}" target="_blank" class="block mt-4 bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-lg">
+              🎯 Apply Now
+            </a>
+          {% else %}
+            <p class="text-sm italic text-gray-400 mt-4">No application link provided.</p>
+          {% endif %}
+
+          
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if not scholarships %}
+      <p class="text-center text-red-600 mt-10 text-lg font-semibold">No matching scholarships found.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

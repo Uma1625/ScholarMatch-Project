@@ -1,0 +1,132 @@
+<!-- templates/form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ScholarMatch – Student Profile Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white text-gray-800 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">🎓 ScholarMatch Profile</h2>
+
+    <form method="POST" action="/submit-profile" class="space-y-5">
+
+      <!-- Gender -->
+      <div>
+        <label class="block font-medium mb-1">Gender:</label>
+        <select name="gender" required class="w-full border px-3 py-2 rounded">
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- Education -->
+      <div>
+        <label class="block font-medium mb-1">Education Level:</label>
+        <select name="education" required class="w-full border px-3 py-2 rounded">
+          <option value="">Select</option>
+          <option>5th</option>
+          <option>6th</option>
+          <option>7th</option>
+          <option>8th</option>
+          <option>9th</option>
+          <option>10th</option>
+          <option>12th</option>
+          <option>UG</option>
+          <option>PG</option>
+        </select>
+      </div>
+
+      <!-- Category -->
+      <div>
+        <label class="block font-medium mb-1">Caste / Category:</label>
+        <select name="category" required class="w-full border px-3 py-2 rounded">
+          <option value="">Select</option>
+          <option>GEN</option>
+          <option>OBC</option>
+          <option>SC</option>
+          <option>ST</option>
+          <option>EWS</option>
+          <option>Minority</option>
+        </select>
+      </div>
+
+      <!-- Annual Income -->
+      <div>
+        <label class="block font-medium mb-1">Annual Family Income (₹):</label>
+        <input type="number" name="income" required class="w-full border px-3 py-2 rounded" placeholder="e.g., 250000">
+      </div>
+
+      <!-- State -->
+      <div>
+        <label class="block font-medium mb-1">State:</label>
+        <input type="text" name="state" required class="w-full border px-3 py-2 rounded" placeholder="e.g., Andhra Pradesh">
+      </div>
+
+      <!-- Date of Birth -->
+      <div>
+        <label class="block font-medium mb-1">Date of Birth:</label>
+        <input type="date" name="dob" required class="w-full border px-3 py-2 rounded">
+      </div>
+
+      <!-- Religion -->
+      <div>
+        <label class="block font-medium mb-1">Religion:</label>
+        <select name="religion" required class="w-full border px-3 py-2 rounded">
+          <option value="">Select</option>
+          <option>Hindu</option>
+          <option>Muslim</option>
+          <option>Christian</option>
+          <option>Sikh</option>
+          <option>Jain</option>
+          <option>Buddhist</option>
+          <option>Parsi</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- Disability -->
+      <div>
+        <label class="block font-medium mb-1">Are you differently abled?</label>
+        <select name="disability" required class="w-full border px-3 py-2 rounded">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <!-- Course/Stream -->
+      <div>
+        <label class="block font-medium mb-1">Course / Stream:</label>
+        <input type="text" name="course" class="w-full border px-3 py-2 rounded" placeholder="e.g., B.Tech, Arts, MBBS">
+      </div>
+
+      <!-- Marks / Percentage -->
+      <div>
+        <label class="block font-medium mb-1">Percentage / Marks (%):</label>
+        <input type="number" name="percentage" min="0" max="100" class="w-full border px-3 py-2 rounded" placeholder="e.g., 85">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block font-medium mb-1">Email for Alerts:</label>
+        <input type="email" name="email" required class="w-full border px-3 py-2 rounded" placeholder="e.g., yourname@gmail.com">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 shadow">
+          Find Scholarships
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>

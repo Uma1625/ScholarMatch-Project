@@ -1,0 +1,20 @@
+# 🔒 Secret and sensitive files
+firebase-key.json
+.env
+
+# 🐍 Python virtual environment
+venv/
+
+# ⛔ Python cache files
+__pycache__/
+*.pyc
+
+# 💻 System files
+.DS_Store
+Thumbs.db
+
+# 🔧 VS Code workspace settings (optional)
+.vscode/
+
+# 🧪 Log files (optional)
+*.log
