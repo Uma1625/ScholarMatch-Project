@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Sign up – ScholarMatch{% endblock %}
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8ede3] via-[#fff] to-[#f3d9ca] px-4">
+  <div class="max-w-md w-full bg-[#fffdfb] p-8 rounded-2xl shadow-xl border border-[#e6d4cd] transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
+    
+    <!-- Heading -->
+    <h2 class="text-3xl font-extrabold text-[#593832] text-center mb-2">Create your account</h2>
+    <p class="text-[#7a5c55] text-sm text-center mb-6">Unlock opportunities tailored just for you</p>
+    
+    <!-- Signup Form -->
+    <form method="POST" class="space-y-5">
+      
+      <!-- Email -->
+      <div>
+        <label class="block font-medium mb-1 text-[#593832]">Email</label>
+        <input 
+          name="email" 
+          type="email" 
+          required 
+          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
+          placeholder="you@example.com"
+        />
+      </div>
+      
+      <!-- Password -->
+      <div>
+        <label class="block font-medium mb-1 text-[#593832]">Password</label>
+        <input 
+          name="password" 
+          type="password" 
+          required 
+          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
+          placeholder="••••••••"
+        />
+      </div>
+      
+      <!-- Confirm Password -->
+      <div>
+        <label class="block font-medium mb-1 text-[#593832]">Confirm Password</label>
+        <input 
+          name="confirm" 
+          type="password" 
+          required 
+          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
+          placeholder="••••••••"
+        />
+      </div>
+      
+      <!-- Submit Button -->
+      <button 
+        class="w-full bg-gradient-to-r from-[#c08457] to-[#a45c40] text-white py-2.5 rounded-lg shadow-md font-semibold hover:from-[#a45c40] hover:to-[#844a34] focus:ring-4 focus:ring-[#e6b8a2] transition-all duration-300 transform hover:scale-[1.02]">
+        Sign up
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center my-6">
+      <hr class="flex-1 border-[#d7c2bb]">
+      <span class="px-3 text-[#7a5c55] text-sm">or</span>
+      <hr class="flex-1 border-[#d7c2bb]">
+    </div>
+
+    <!-- Login Redirect -->
+    <p class="text-sm text-center text-[#593832]">
+      Already have an account?
+      <a href="{{ url_for('login') }}" class="text-[#a45c40] font-semibold hover:underline">Log in</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

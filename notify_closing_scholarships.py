@@ -1,67 +1,61 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-from datetime import datetime, timedelta
+from datetime import datetime
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import os
-from dotenv import load_dotenv
 
-# ✅ Initialize Firebase
 cred = credentials.Certificate("firebase-key.json")
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(cred)
 db = firestore.client()
-load_dotenv()
-# ✅ SendGrid Configuration
-SENDGRID_API_KEY =  os.getenv("SENDGRID_API_KEY")  # Replace with your key
-SENDER_EMAIL = "umabharathimothukuri25@gmail.com"  # Your verified sender
 
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+SENDER_EMAIL = "umabharathimothukuri25@gmail.com"
 sg = SendGridAPIClient(SENDGRID_API_KEY)
 
-# ✅ Fetch all scholarships
-scholarships = db.collection("scholarships").stream()
-scholarships = [s.to_dict() for s in scholarships]
+schols = [s.to_dict() | {"id": s.id} for s in db.collection("scholarships").stream()]
+profiles = {p.id: p.to_dict() for p in db.collection("profiles").stream()}   # key = email
+users = {u.id: u.to_dict() for u in db.collection("users").stream()}         # key = email
 
-# ✅ Target deadlines (in days)
 days_to_check = [10, 5, 1]
 today = datetime.today().date()
 
-# ✅ Fetch all user profiles
-users = [doc.to_dict() for doc in db.collection("profiles").stream()]
+def eligible(s, u):
+    return (
+        (s.get('gender','Any') == "Any" or s['gender'] == u['gender']) and
+        (s.get('education','').lower() == u.get('education','').lower()) and
+        (s.get('category','Any').lower() in ['any', u.get('category','').lower()]) and
+        (s.get('state','All').lower() in ['all', u.get('state','').lower()]) and
+        (int(u.get('income', 0)) <= int(s.get('max_income', 99999999))) and
+        (s.get('religion','Any') in ['Any', u.get('religion','')]) and
+        (s.get('disability','Any') in ['Any', u.get('disability','')]) and
+        (int(u.get('percentage', 0)) >= int(s.get('min_percentage', 0)))
+    )
 
-# ✅ Loop over scholarships
-for s in scholarships:
+for s in schols:
     try:
-        deadline = datetime.strptime(s['deadline'], "%Y-%m-%d").date()
-        days_left = (deadline - today).days
-
+        d = datetime.strptime(s['deadline'], "%Y-%m-%d").date()
+        days_left = (d - today).days
         if days_left in days_to_check:
-            for user in users:
-                is_match = (
-                    (s['gender'] == "Any" or s['gender'] == user['gender']) and
-                    (s['education'] == user['education']) and
-                    (s['category'].lower() == user['category'].lower()) and
-                    (s['state'].lower() in ['all', user['state'].lower()]) and
-                    (user['income'] <= s['max_income']) and
-                    (s['religion'] in ['Any', user['religion']]) and
-                    (s['disability'] in ['Any', user['disability']]) and
-                    (user['percentage'] >= s.get('min_percentage', 0))
-                )
-
-                if is_match:
-                    message = Mail(
+            for email, prof in profiles.items():
+                if eligible(s, prof):
+                    user = users.get(email)
+                    if not user: 
+                        continue
+                    msg = Mail(
                         from_email=SENDER_EMAIL,
-                        to_emails=user['email'],
+                        to_emails=email,
                         subject=f"⏰ Scholarship Closing Soon: {s['name']}",
                         html_content=f"""
-                            <p>Hello {user['email']},</p>
-                            <p>The scholarship <strong>{s['name']}</strong> is closing in <strong>{days_left} day(s)</strong>.</p>
-                            <p><strong>Amount:</strong> {s['amount']}</p>
-                            <p><strong>Deadline:</strong> {s['deadline']}</p>
-                            <p><a href="{s['apply_link']}">Apply Now</a></p>
-                            <br><p>Best wishes,<br>ScholarMatch Team</p>
+                        <p>Hello {email},</p>
+                        <p>The scholarship <strong>{s['name']}</strong> is closing in <strong>{days_left} day(s)</strong>.</p>
+                        <p><strong>Amount:</strong> {s['amount']}</p>
+                        <p><strong>Deadline:</strong> {s['deadline']}</p>
+                        <p><a href="{s.get('apply_link','#')}">Apply Now</a></p>
                         """
                     )
-                    sg.send(message)
-                    print(f"✅ Email sent to {user['email']} for {s['name']} (Deadline in {days_left} days)")
+                    sg.send(msg)
+                    print(f"Sent to {email}")
     except Exception as e:
-        print(f"❌ Error processing scholarship {s.get('name')}: {e}")
+        print("Error:", e)

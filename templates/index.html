@@ -1,64 +1,68 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>ScholarMatch – Smart Scholarship Finder</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+{% extends "base.html" %}
+{% block title %}ScholarMatch – Smart Scholarship Finder{% endblock %}
+{% block content %}
 
-  <!-- 🔹 Hero Section -->
-  <header class="bg-blue-600 text-white text-center py-10 shadow">
-    <h1 class="text-4xl font-bold">🎓 ScholarMatch</h1>
-    <p class="text-lg mt-2">Find Scholarships That Match You</p>
-  </header>
+<!-- Hero Section -->
+<header class="bg-[#593832] text-white text-center py-16 rounded-lg shadow-lg">
+  <h1 class="text-5xl font-extrabold mb-4">🎓 ScholarMatch</h1>
+  <p class="text-lg max-w-2xl mx-auto">
+    Your personalized scholarship assistant — find the right scholarships based on your profile in just a few clicks.
+  </p>
+  <div class="mt-8 flex justify-center space-x-4">
+    <a href="{{ url_for('login') }}">
+      <button class="px-6 py-3 bg-white text-[#593832] font-semibold rounded-lg shadow hover:bg-gray-100 transition">
+        Log in to Search
+      </button>
+    </a>
+    <a href="{{ url_for('signup') }}">
+      <button class="px-6 py-3 border border-white font-semibold rounded-lg hover:bg-white hover:text-[#593832] transition">
+        Create Account
+      </button>
+    </a>
+  </div>
+</header>
 
-  <!-- 🔹 Intro & CTA Buttons -->
-  <section class="text-center py-10 px-6">
-    <p class="text-xl max-w-2xl mx-auto mb-6">
-      ScholarMatch helps students discover scholarships based on their profile like income, education, category, and more — fast, personalized, and hassle-free.
-    </p>
-    <div class="flex justify-center space-x-4">
-      <a href="/form">
-        <button class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Search Scholarships</button>
-      </a>
+<!-- Features Section -->
+<section class="py-16 px-6 text-center">
+  <h2 class="text-3xl font-bold mb-10 text-gray-800">Why Choose ScholarMatch?</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+    
+    <!-- Feature 1 -->
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
+      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Smart Matching</h3>
+      <p class="text-gray-600">
+        Get scholarships tailored to your income, education, and background instantly.
+      </p>
     </div>
-  </section>
-
-  <!-- 🔹 Feature Cards -->
-  <section class="py-12 px-6 bg-white">
-    <h2 class="text-2xl font-bold text-center mb-8">Key Features</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-        <h3 class="font-bold text-lg mb-2">🔎 Smart Eligibility Checker</h3>
-        <p>Personalized scholarship results based on your profile like gender, category, income & state.</p>
-      </div>
-      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-        <h3 class="font-bold text-lg mb-2">🎯 Real-Time Filters</h3>
-        <p>Use live filters to sort scholarships by state, deadline, amount, and more.</p>
-      </div>
-      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-        <h3 class="font-bold text-lg mb-2">🔖 Bookmark Scholarships</h3>
-        <p>Save scholarships for later even without logging in — fast and simple.</p>
-      </div>
-      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-        <h3 class="font-bold text-lg mb-2">📅 Deadline Alerts</h3>
-        <p>Get notified when a scholarship deadline is approaching or a new one is added.</p>
-      </div>
+    
+    <!-- Feature 2 -->
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
+      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Email Notifications</h3>
+      <p class="text-gray-600">
+        Never miss an opportunity — we notify you before deadlines close.
+      </p>
     </div>
-  </section>
+    
+    <!-- Feature 3 -->
+    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
+      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Dashboard Tracking</h3>
+      <p class="text-gray-600">
+        Save scholarships, track your progress, and stay organized in one place.
+      </p>
+    </div>
 
-  <!-- 🔹 Footer -->
-  <footer class="bg-gray-800 text-white text-center py-6 mt-10">
-    <p>&copy; 2024 ScholarMatch. All rights reserved.</p>
-    <p>
-      <a href="https://github.com/your-github-username/scholarmatch" class="underline hover:text-blue-400" target="_blank">GitHub</a> |
-      <a href="#" class="underline hover:text-blue-400">Privacy Policy</a>
-    </p>
-  </footer>
+  </div>
+</section>
 
-</body>
-</html>
+<!-- Call to Action -->
+<section class="bg-[#F8EDEB] py-12 text-center rounded-lg shadow-inner mt-10">
+  <h2 class="text-2xl font-bold mb-4 text-[#593832]">Start Your Journey Today 🚀</h2>
+  <p class="text-gray-700 mb-6">Create your free account and unlock scholarships that match your profile.</p>
+  <a href="{{ url_for('signup') }}">
+    <button class="px-8 py-3 bg-[#593832] text-white font-semibold rounded-lg hover:bg-[#40282D] transition">
+      Get Started for Free
+    </button>
+  </a>
+</section>
 
+{% endblock %}
