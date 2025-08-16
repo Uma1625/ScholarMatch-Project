@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – ScholarMatch{% endblock %}
+
+{% block content %}
+
+<style>
+/* Background + layout */
+body {
+  background: #fdf5f2; /* light warm background */
+  padding-top: 90px;  /* to avoid navbar overlap */
+  font-family: "Poppins", sans-serif;
+}
+
+
+
+
+/* Section Title */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: #593832;
+  text-transform: uppercase;
+  position: relative;
+  animation: fadeInDown 0.8s ease-in-out;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 4px;
+  margin-top: 6px;
+  background: linear-gradient(90deg, #593832, #8b5e50, #a97164);
+  border-radius: 2px;
+}
+
+/* Card Styling */
+.card {
+  border: 1px solid #EBDDE2;
+  border-radius: 16px;
+  background: #ffffff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+}
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* Text Colors */
+.text-primary   { color: #593832 !important; }
+.text-success   { color: #2e7d32 !important; }
+.text-warning   { color: #d97706 !important; }
+.text-gray-500  { color: #6b7280 !important; }
+
+/* Buttons */
+.btn {
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.btn-success {
+  background-color: #593832;
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: #402923;
+}
+.btn-outline-primary {
+  border: 2px solid #593832;
+  color: #593832;
+}
+.btn-outline-primary:hover {
+  background-color: #593832;
+  color: #fff;
+}
+.btn-secondary {
+  background-color: #9ca3af;
+  color: #fff;
+}
+
+/* Badges */
+.badge.bg-danger {
+  background: #dc2626 !important;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 12px;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {opacity: 0; transform: translateY(-20px);}
+  to   {opacity: 1; transform: translateY(0);}
+}
+</style>
+
+<h1 class="section-title">📊 Your Dashboard</h1>
+
+<!-- Stats Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
+    <div class="text-sm text-gray-500">Total Applications</div>
+    <div class="text-3xl font-bold text-primary">{{ stats.total_applied }}</div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
+    <div class="text-sm text-gray-500">Deadlined (7 days)</div>
+    <div class="text-3xl font-bold text-red-600">{{ stats.deadlined }}</div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
+    <div class="text-sm text-gray-500">Saved Scholarships</div>
+    <div class="text-3xl font-bold text-primary">{{ stats.saved_count }}</div>
+  </div>
+</div>
+
+<!-- Saved Scholarships -->
+<h2 class="section-title">💾 Saved Scholarships</h2>
+{% if saved_scholarships %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for s in saved_scholarships %}
+  <div class="card shadow-sm">
+    <div class="card-body p-5">
+      <h5 class="card-title text-primary">{{ s.name }}</h5>
+      <p class="mt-2 text-gray-700">
+        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
+        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
+        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
+        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
+      </p>
+    </div>
+    <div class="card-footer flex justify-between items-center p-3 bg-gray-50 rounded-b-xl">
+      {% if s.is_closing_soon %}
+        <span class="badge bg-danger">Closing Soon</span>
+      {% else %}
+        <span>&nbsp;</span>
+      {% endif %}
+      <div>
+        {% if s.id not in applied_ids %}
+          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success px-4 py-1">Apply</a>
+        {% else %}
+          <button class="btn btn-secondary px-4 py-1" disabled>Applied</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-gray-600">You haven't saved any scholarships yet.</p>
+{% endif %}
+
+<!-- Applied Scholarships -->
+<h2 class="section-title">✅ Applied Scholarships</h2>
+{% if applied_scholarships %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for s in applied_scholarships %}
+  <div class="card shadow-sm">
+    <div class="card-body p-5">
+      <h5 class="card-title text-success">{{ s.name }}</h5>
+      <p class="mt-2 text-gray-700">
+        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
+        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
+        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
+        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
+      </p>
+    </div>
+    <div class="card-footer text-right p-3 bg-gray-50 rounded-b-xl">
+      <button class="btn btn-secondary px-4 py-1" disabled>Applied</button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-gray-600">You haven't applied to any scholarships yet.</p>
+{% endif %}
+
+<!-- Matched Scholarships -->
+<h2 class="section-title">🎯 Matched Scholarships</h2>
+{% if matched_scholarships %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for s in matched_scholarships %}
+  <div class="card shadow-sm">
+    <div class="card-body p-5">
+      <h5 class="card-title text-warning">{{ s.name }}</h5>
+      <p class="mt-2 text-gray-700">
+        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
+        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
+        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
+        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
+      </p>
+    </div>
+    <div class="card-footer flex justify-between items-center p-3 bg-gray-50 rounded-b-xl">
+      {% if s.is_closing_soon %}
+        <span class="badge bg-danger">Closing Soon</span>
+      {% else %}
+        <span>&nbsp;</span>
+      {% endif %}
+      <div class="flex gap-2">
+        {% if s.id not in saved_ids %}
+        <form method="POST" action="{{ url_for('save_scholarship') }}">
+          <input type="hidden" name="scholarship_id" value="{{ s.id }}">
+          <button type="submit" class="btn btn-outline-primary px-3 py-1">Save</button>
+        </form>
+        {% else %}
+          <button class="btn btn-secondary px-3 py-1" disabled>Saved</button>
+        {% endif %}
+
+        {% if s.id not in applied_ids %}
+          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success px-3 py-1">Apply</a>
+        {% else %}
+          <button class="btn btn-secondary px-3 py-1" disabled>Applied</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-gray-600">No scholarships match your latest profile yet.</p>
+{% endif %}
+
+{% endblock %}

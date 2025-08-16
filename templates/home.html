@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Home – ScholarMatch{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #593632, #7A4E45, #A97155);
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    padding-top: 80px; /* to avoid navbar overlap */
+  }
+
+  /* Hero Card */
+  .hero-card {
+    max-width: 50rem;
+    background: #fff;
+    color: #593632;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 1px solid #e2d9d7;
+    transition: all 0.3s ease-in-out;
+    margin: 0 auto;
+  }
+
+  .hero-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .hero-desc {
+    font-size: 1.125rem;
+    color: #7A4E45;
+    line-height: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  /* CTA Button */
+  .cta-btn {
+    background: linear-gradient(to right, #A97155, #593632);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .cta-btn:hover {
+    background: linear-gradient(to right, #7A4E45, #3E2623);
+    transform: scale(1.05);
+  }
+
+  /* Feature Cards */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    max-width: 72rem;
+    margin: 3rem auto 0;
+  }
+
+  .feature-card {
+    background: #fff;
+    color: #593632;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    transform: translateY(-6px);
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    color: #6b6b6b;
+    font-size: 0.95rem;
+  }
+
+</style>
+
+<!-- Hero Section -->
+<div class="flex flex-col items-center justify-center px-6 py-16 text-center">
+
+  <!-- Hero Card -->
+  <div class="hero-card">
+    <h1 class="hero-title">Welcome to ScholarMatch 👋</h1>
+    <p class="hero-desc">
+      <strong>ScholarMatch</strong> is your personalized scholarship finder.<br>
+      Discover, save, and track scholarships tailored to your profile.<br>
+      Stay updated with smart deadline alerts and manage your applications effortlessly in your dashboard.
+    </p>
+    <a href="{{ url_for('form') }}" class="cta-btn">🎓 Find Scholarships</a>
+  </div>
+
+  <!-- Feature Highlights -->
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>🔎 Smart Matching</h3>
+      <p>Get instantly matched scholarships based on your academic profile and goals.</p>
+    </div>
+    <div class="feature-card">
+      <h3>⭐ Save & Track</h3>
+      <p>Bookmark scholarships, track deadlines, and manage everything in your dashboard.</p>
+    </div>
+    <div class="feature-card">
+      <h3>📢 Deadline Alerts</h3>
+      <p>Stay ahead with timely notifications about scholarships closing soon.</p>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
