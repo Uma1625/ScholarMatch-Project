@@ -3,125 +3,147 @@
 {% block content %}
 
 <style>
+  /* Updated background with modern gradient and better spacing */
   body {
-    background: linear-gradient(135deg, #593632, #7A4E45, #A97155);
-    font-family: 'Segoe UI', sans-serif;
-    color: #fff;
-    padding-top: 80px; /* to avoid navbar overlap */
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: #1f2937;
   }
 
-  /* Hero Card */
+  /* Enhanced hero card with modern styling */
   .hero-card {
-    max-width: 50rem;
-    background: #fff;
-    color: #593632;
-    padding: 2.5rem;
+    max-width: 56rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    color: #1f2937;
+    padding: 3rem;
     border-radius: 2rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border: 1px solid #e2d9d7;
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     margin: 0 auto;
   }
 
   .hero-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.15);
   }
 
+  /* Enhanced typography with better hierarchy */
   .hero-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #2563eb, #3b82f6, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .hero-desc {
-    font-size: 1.125rem;
-    color: #7A4E45;
-    line-height: 1.75rem;
-    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    color: #4b5563;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
   }
 
-  /* CTA Button */
+  /* Enhanced CTA button with better gradients */
   .cta-btn {
-    background: linear-gradient(to right, #A97155, #593632);
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
     color: #fff;
-    padding: 0.75rem 2rem;
-    border-radius: 1rem;
-    font-weight: 600;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease-in-out;
+    padding: 1rem 2.5rem;
+    border-radius: 1.25rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
     text-decoration: none;
   }
 
   .cta-btn:hover {
-    background: linear-gradient(to right, #7A4E45, #3E2623);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
   }
 
-  /* Feature Cards */
+  /* Enhanced feature grid with better responsive design */
   .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 1.5rem;
-    max-width: 72rem;
-    margin: 3rem auto 0;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2rem;
+    max-width: 80rem;
+    margin: 4rem auto 0;
   }
 
+  /* Enhanced feature cards with modern styling */
   .feature-card {
-    background: #fff;
-    color: #593632;
-    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    color: #1f2937;
+    padding: 2rem;
     border-radius: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #10b981, #f59e0b);
   }
 
   .feature-card:hover {
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.03);
   }
 
   .feature-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2563eb;
   }
 
   .feature-card p {
-    color: #6b6b6b;
-    font-size: 0.95rem;
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
   }
-
 </style>
 
-<!-- Hero Section -->
-<div class="flex flex-col items-center justify-center px-6 py-16 text-center">
+<!-- Enhanced hero section with better spacing and modern design -->
+<div class="flex flex-col items-center justify-center px-6 py-20 text-center">
 
   <!-- Hero Card -->
   <div class="hero-card">
-    <h1 class="hero-title">Welcome to ScholarMatch 👋</h1>
+    <h1 class="hero-title">Welcome to ScholarMatch 🎓</h1>
     <p class="hero-desc">
-      <strong>ScholarMatch</strong> is your personalized scholarship finder.<br>
-      Discover, save, and track scholarships tailored to your profile.<br>
-      Stay updated with smart deadline alerts and manage your applications effortlessly in your dashboard.
+      <strong>Your AI-powered scholarship companion</strong> that discovers, matches, and tracks opportunities perfectly tailored to your unique profile. Join thousands of students who've already found their perfect scholarships.
     </p>
-    <a href="{{ url_for('form') }}" class="cta-btn">🎓 Find Scholarships</a>
+    <a href="{{ url_for('form') }}" class="cta-btn">🚀 Discover Your Scholarships</a>
   </div>
 
-  <!-- Feature Highlights -->
+  <!-- Enhanced feature highlights with better icons and content -->
   <div class="feature-grid">
     <div class="feature-card">
-      <h3>🔎 Smart Matching</h3>
-      <p>Get instantly matched scholarships based on your academic profile and goals.</p>
+      <h3>🎯 Smart AI Matching</h3>
+      <p>Our intelligent algorithm analyzes your profile and instantly matches you with scholarships that fit your academic background, financial needs, and career goals.</p>
     </div>
     <div class="feature-card">
-      <h3>⭐ Save & Track</h3>
-      <p>Bookmark scholarships, track deadlines, and manage everything in your dashboard.</p>
+      <h3>💾 Save & Organize</h3>
+      <p>Bookmark promising scholarships, track application deadlines, and manage your entire scholarship journey from one comprehensive dashboard.</p>
     </div>
     <div class="feature-card">
-      <h3>📢 Deadline Alerts</h3>
-      <p>Stay ahead with timely notifications about scholarships closing soon.</p>
+      <h3>⚡ Real-time Alerts</h3>
+      <p>Never miss an opportunity with smart notifications about approaching deadlines, new matching scholarships, and important updates.</p>
     </div>
   </div>
 

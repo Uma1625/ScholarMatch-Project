@@ -2,72 +2,139 @@
 {% block title %}Sign up – ScholarMatch{% endblock %}
 {% block content %}
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8ede3] via-[#fff] to-[#f3d9ca] px-4">
-  <div class="max-w-md w-full bg-[#fffdfb] p-8 rounded-2xl shadow-xl border border-[#e6d4cd] transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
-    
-    <!-- Heading -->
-    <h2 class="text-3xl font-extrabold text-[#593832] text-center mb-2">Create your account</h2>
-    <p class="text-[#7a5c55] text-sm text-center mb-6">Unlock opportunities tailored just for you</p>
-    
-    <!-- Signup Form -->
-    <form method="POST" class="space-y-5">
-      
-      <!-- Email -->
-      <div>
-        <label class="block font-medium mb-1 text-[#593832]">Email</label>
-        <input 
-          name="email" 
-          type="email" 
-          required 
-          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
-          placeholder="you@example.com"
-        />
-      </div>
-      
-      <!-- Password -->
-      <div>
-        <label class="block font-medium mb-1 text-[#593832]">Password</label>
-        <input 
-          name="password" 
-          type="password" 
-          required 
-          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
-          placeholder="••••••••"
-        />
-      </div>
-      
-      <!-- Confirm Password -->
-      <div>
-        <label class="block font-medium mb-1 text-[#593832]">Confirm Password</label>
-        <input 
-          name="confirm" 
-          type="password" 
-          required 
-          class="w-full border border-[#cbb6ae] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#c08457] focus:outline-none transition-all" 
-          placeholder="••••••••"
-        />
-      </div>
-      
-      <!-- Submit Button -->
-      <button 
-        class="w-full bg-gradient-to-r from-[#c08457] to-[#a45c40] text-white py-2.5 rounded-lg shadow-md font-semibold hover:from-[#a45c40] hover:to-[#844a34] focus:ring-4 focus:ring-[#e6b8a2] transition-all duration-300 transform hover:scale-[1.02]">
-        Sign up
-      </button>
-    </form>
-
-    <!-- Divider -->
-    <div class="flex items-center my-6">
-      <hr class="flex-1 border-[#d7c2bb]">
-      <span class="px-3 text-[#7a5c55] text-sm">or</span>
-      <hr class="flex-1 border-[#d7c2bb]">
+<div class="auth-container">
+    <div class="auth-card">
+        <!-- Hero Section -->
+        <div class="auth-hero">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-rocket fa-2x"></i>
+                </div>
+                <h1 class="hero-title">Start Your Scholarship Journey</h1>
+                <p class="hero-subtitle">Join thousands of students who have found their perfect scholarships through our intelligent matching system.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Match Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Free</span>
+                        <span class="stat-label">Forever</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form Section -->
+        <div class="auth-form">
+            <div class="form-header">
+                <h2 class="form-title">Create Account</h2>
+                <p class="form-subtitle">Get started with your free account</p>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'error' if category == 'error' else 'success' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" novalidate>
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input 
+                        id="name"
+                        name="name" 
+                        type="text" 
+                        required 
+                        class="form-input"
+                        placeholder="Enter your full name"
+                        value="{{ request.form.name if request.form.name }}"
+                    />
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input 
+                        id="email"
+                        name="email" 
+                        type="email" 
+                        required 
+                        class="form-input"
+                        placeholder="Enter your email address"
+                        value="{{ request.form.email if request.form.email }}"
+                    />
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        id="password"
+                        name="password" 
+                        type="password" 
+                        required 
+                        class="form-input"
+                        placeholder="Create a strong password"
+                        minlength="8"
+                    />
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm" class="form-label">Confirm Password</label>
+                    <input 
+                        id="confirm"
+                        name="confirm" 
+                        type="password" 
+                        required 
+                        class="form-input"
+                        placeholder="Confirm your password"
+                        minlength="8"
+                    />
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-plus" style="margin-right: 0.5rem;"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="form-footer">
+                <p>Already have an account? 
+                    <a href="{{ url_for('login') }}" class="form-link">Sign in here</a>
+                </p>
+            </div>
+        </div>
     </div>
-
-    <!-- Login Redirect -->
-    <p class="text-sm text-center text-[#593832]">
-      Already have an account?
-      <a href="{{ url_for('login') }}" class="text-[#a45c40] font-semibold hover:underline">Log in</a>
-    </p>
-  </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Password confirmation validation
+document.addEventListener('DOMContentLoaded', function() {
+    const password = document.getElementById('password');
+    const confirm = document.getElementById('confirm');
+    
+    function validatePassword() {
+        if (password.value !== confirm.value) {
+            confirm.setCustomValidity("Passwords don't match");
+        } else {
+            confirm.setCustomValidity('');
+        }
+    }
+    
+    password.addEventListener('change', validatePassword);
+    confirm.addEventListener('keyup', validatePassword);
+});
+</script>
 {% endblock %}
