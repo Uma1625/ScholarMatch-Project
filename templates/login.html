@@ -2,60 +2,94 @@
 {% block title %}Log in – ScholarMatch{% endblock %}
 {% block content %}
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#592632] via-[#382650] to-[#FF6F61] px-4">
-  <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
-    
-    <!-- Heading -->
-    <h2 class="text-3xl font-extrabold text-[#592632] text-center mb-2">Welcome back</h2>
-    <p class="text-gray-600 text-sm text-center mb-6">Log in to continue your scholarship journey</p>
-    
-    <!-- Login Form -->
-    <form method="POST" class="space-y-5">
-      
-      <!-- Email -->
-      <div>
-        <label class="block font-medium mb-1 text-[#382650]">Email</label>
-        <input 
-          name="email" 
-          type="email" 
-          required 
-          class="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#FF6F61] focus:outline-none transition-all" 
-          placeholder="you@example.com"
-        />
-      </div>
-      
-      <!-- Password -->
-      <div>
-        <label class="block font-medium mb-1 text-[#382650]">Password</label>
-        <input 
-          name="password" 
-          type="password" 
-          required 
-          class="w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#FF6F61] focus:outline-none transition-all" 
-          placeholder="••••••••"
-        />
-      </div>
-      
-      <!-- Submit Button -->
-      <button 
-        class="w-full bg-gradient-to-r from-[#592632] via-[#382650] to-[#FF6F61] text-white py-2.5 rounded-lg shadow-md font-semibold hover:from-[#382650] hover:via-[#592632] hover:to-[#FF6F61] focus:ring-4 focus:ring-[#FF6F61]/40 transition-all duration-300 transform hover:scale-[1.02]">
-        Log in
-      </button>
-    </form>
-
-    <!-- Divider -->
-    <div class="flex items-center my-6">
-      <hr class="flex-1 border-gray-300">
-      <span class="px-3 text-gray-400 text-sm">or</span>
-      <hr class="flex-1 border-gray-300">
+<div class="auth-container">
+    <div class="auth-card">
+        <!-- Hero Section -->
+        <div class="auth-hero">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-graduation-cap fa-2x"></i>
+                </div>
+                <h1 class="hero-title">Welcome Back to ScholarMatch</h1>
+                <p class="hero-subtitle">Continue your journey to finding the perfect scholarships that match your profile and aspirations.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Scholarships</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Students Helped</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$2M+</span>
+                        <span class="stat-label">Awarded</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form Section -->
+        <div class="auth-form">
+            <div class="form-header">
+                <h2 class="form-title">Sign In</h2>
+                <p class="form-subtitle">Access your scholarship dashboard</p>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'error' if category == 'error' else 'success' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" novalidate>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input 
+                        id="email"
+                        name="email" 
+                        type="email" 
+                        required 
+                        class="form-input"
+                        placeholder="Enter your email address"
+                        value="{{ request.form.email if request.form.email }}"
+                    />
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        id="password"
+                        name="password" 
+                        type="password" 
+                        required 
+                        class="form-input"
+                        placeholder="Enter your password"
+                    />
+                    <div class="forgot-password">
+                        <a href="{{ url_for('forgot_password') if url_for('forgot_password') else '#' }}">Forgot your password?</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt" style="margin-right: 0.5rem;"></i>
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="form-footer">
+                <p>New to ScholarMatch? 
+                    <a href="{{ url_for('signup') }}" class="form-link">Create your account</a>
+                </p>
+            </div>
+        </div>
     </div>
-
-    <!-- Redirect to Signup -->
-    <p class="text-sm text-center text-gray-700">
-      New here?
-      <a href="{{ url_for('signup') }}" class="text-[#FF6F61] font-semibold hover:underline">Create an account</a>
-    </p>
-  </div>
 </div>
 
 {% endblock %}

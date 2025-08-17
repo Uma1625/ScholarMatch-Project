@@ -2,65 +2,113 @@
 {% block title %}Matched Scholarships – ScholarMatch{% endblock %}
 {% block content %}
 
-<h1 class="text-3xl font-bold text-[#3B2632] mb-6 text-center">🎓 Scholarships Matching Your Profile</h1>
+<!-- Enhanced page header with modern styling and better spacing -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-8 mb-8 shadow-xl">
+  <h1 class="text-4xl font-bold mb-2 text-center">🎓 Your Scholarship Matches</h1>
+  <p class="text-blue-100 text-center text-lg">Scholarships perfectly tailored to your profile</p>
+</div>
 
-<!-- Filters -->
-<form method="GET" class="grid md:grid-cols-4 gap-4 mb-8">
-  <input name="q" value="{{ request.args.get('q','') }}" placeholder="Search by name"
-         class="w-full p-3 border rounded-lg">
-  <input name="income_max" value="{{ request.args.get('income_max','') }}" placeholder="Max Income (₹)"
-         class="w-full p-3 border rounded-lg" />
-  <input name="amount_min" value="{{ request.args.get('amount_min','') }}" placeholder="Min Amount (₹)"
-         class="w-full p-3 border rounded-lg" />
-  <button class="bg-[#3B2632] text-white rounded-lg px-4 py-2 hover:bg-[#5c3b4d] transition">Filter</button>
-</form>
+<!-- Enhanced filters with modern card styling and better layout -->
+<div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-blue-100">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+    🔍 <span class="ml-2">Filter Results</span>
+  </h2>
+  <form method="GET" class="grid md:grid-cols-4 gap-4">
+    <input name="q" value="{{ request.args.get('q','') }}" placeholder="Search by name"
+           class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300">
+    <input name="income_max" value="{{ request.args.get('income_max','') }}" placeholder="Max Income (₹)"
+           class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300" />
+    <input name="amount_min" value="{{ request.args.get('amount_min','') }}" placeholder="Min Amount (₹)"
+           class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300" />
+    <button class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-6 py-3 font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+      Filter Results
+    </button>
+  </form>
+</div>
 
-<!-- Cards -->
-<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+<!-- Enhanced scholarship cards with modern design, better colors, and improved hover effects -->
+<div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
   {% for s in scholarships %}
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition border 
-                {% if s.id in saved_ids %}border-green-400{% elif s.id in applied_ids %}border-gray-400{% else %}border-[#EBDDE2]{% endif %} relative hover:-translate-y-1 hover:shadow-lg">
+    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 transform hover:-translate-y-2 hover:scale-[1.02]
+                {% if s.id in saved_ids %}border-green-400 bg-green-50{% elif s.id in applied_ids %}border-blue-400 bg-blue-50{% else %}border-gray-200{% endif %} 
+                relative overflow-hidden group">
 
+      <!-- Enhanced closing soon badge with better positioning and styling -->
       {% if s.is_closing_soon and s.id not in applied_ids %}
-        <span class="absolute top-2 right-2 bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded">⏰ Closing Soon</span>
+        <div class="absolute top-4 right-4 z-10">
+          <span class="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
+            ⏰ Closing Soon
+          </span>
+        </div>
       {% endif %}
 
-      <h2 class="text-xl font-bold text-[#3B2632] mb-1">{{ s.name }}</h2>
-      <p><strong>Field:</strong> {{ s.get("field","Any") }}</p>
-      <p><strong>Min Percentage:</strong> {{ s.get("min_percentage","0") }}%</p>
-      {% if s.amount %}<p><strong>Amount:</strong> <span class="text-green-700">{{ s.amount }}</span></p>{% endif %}
-      {% if s.deadline %}<p><strong>Deadline:</strong> {{ s.deadline }}</p>{% endif %}
-      <p><strong>Category:</strong> {{ s.category }}</p>
-      <p><strong>Education:</strong> {{ s.education }}</p>
-      <p><strong>State:</strong> {{ s.state }}</p>
+      <!-- Added gradient overlay for visual appeal -->
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
 
-      <div class="mt-4 flex gap-2">
-        <!-- Save Button -->
-        {% if s.id not in saved_ids %}
-        <form method="POST" action="{{ url_for('save_scholarship') }}" class="flex-1">
-            <input type="hidden" name="scholarship_id" value="{{ s.id }}">
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50 w-full">Save</button>
-        </form>
-        {% else %}
-            <button class="px-4 py-2 border rounded-lg opacity-60 cursor-not-allowed flex-1">Saved</button>
-        {% endif %}
+      <div class="p-6">
+        <!-- Enhanced scholarship title with better typography -->
+        <h2 class="text-xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+          {{ s.name }}
+        </h2>
+        
+        <!-- Better organized scholarship details with icons and improved spacing -->
+        <div class="space-y-2 text-sm text-gray-600 mb-6">
+          <p class="flex items-center"><span class="w-4 h-4 mr-2">📚</span><strong>Field:</strong> <span class="ml-1 text-gray-800">{{ s.get("field","Any") }}</span></p>
+          <p class="flex items-center"><span class="w-4 h-4 mr-2">📊</span><strong>Min Percentage:</strong> <span class="ml-1 text-gray-800">{{ s.get("min_percentage","0") }}%</span></p>
+          {% if s.amount %}<p class="flex items-center"><span class="w-4 h-4 mr-2">💰</span><strong>Amount:</strong> <span class="ml-1 text-green-600 font-semibold">{{ s.amount }}</span></p>{% endif %}
+          {% if s.deadline %}<p class="flex items-center"><span class="w-4 h-4 mr-2">📅</span><strong>Deadline:</strong> <span class="ml-1 text-orange-600 font-medium">{{ s.deadline }}</span></p>{% endif %}
+          <p class="flex items-center"><span class="w-4 h-4 mr-2">🏷️</span><strong>Category:</strong> <span class="ml-1 text-gray-800">{{ s.category }}</span></p>
+          <p class="flex items-center"><span class="w-4 h-4 mr-2">🎓</span><strong>Education:</strong> <span class="ml-1 text-gray-800">{{ s.education }}</span></p>
+          <p class="flex items-center"><span class="w-4 h-4 mr-2">📍</span><strong>State:</strong> <span class="ml-1 text-gray-800">{{ s.state }}</span></p>
+        </div>
 
-        <!-- Apply Button -->
-        {% if s.id not in applied_ids %}
-        <form method="POST" action="{{ url_for('apply_scholarship') }}" class="flex-1">
-            <input type="hidden" name="scholarship_id" value="{{ s.id }}">
-            <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg w-full transition">Apply</button>
-        </form>
-        {% else %}
-            <button class="px-4 py-2 bg-gray-400 text-white rounded-lg opacity-60 cursor-not-allowed flex-1">Applied</button>
-        {% endif %}
+        <!-- Enhanced action buttons with modern styling and better hover effects -->
+        <div class="flex gap-3">
+          <!-- Save Button -->
+          {% if s.id not in saved_ids %}
+          <form method="POST" action="{{ url_for('save_scholarship') }}" class="flex-1">
+              <input type="hidden" name="scholarship_id" value="{{ s.id }}">
+              <button class="w-full px-4 py-2 border-2 border-blue-300 text-blue-600 rounded-xl hover:bg-blue-50 hover:border-blue-400 transition-all duration-300 font-medium transform hover:scale-105">
+                💾 Save
+              </button>
+          </form>
+          {% else %}
+              <button class="flex-1 px-4 py-2 bg-green-100 text-green-600 rounded-xl border-2 border-green-300 font-medium cursor-not-allowed">
+                ✅ Saved
+              </button>
+          {% endif %}
+
+          <!-- Apply Button -->
+          {% if s.id not in applied_ids %}
+          <form method="POST" action="{{ url_for('apply_scholarship') }}" class="flex-1">
+              <input type="hidden" name="scholarship_id" value="{{ s.id }}">
+              <button class="w-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                🚀 Apply
+              </button>
+          </form>
+          {% else %}
+              <button class="flex-1 px-4 py-2 bg-gray-300 text-gray-600 rounded-xl font-medium cursor-not-allowed">
+                ✅ Applied
+              </button>
+          {% endif %}
+        </div>
       </div>
     </div>
   {% endfor %}
 </div>
 
+<!-- Enhanced no results message with better styling -->
 {% if not scholarships %}
-  <p class="text-center text-red-600 mt-10 text-lg font-semibold">No matching scholarships found.</p>
+  <div class="text-center py-16">
+    <div class="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto border border-gray-200">
+      <div class="text-6xl mb-4">🔍</div>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">No Scholarships Found</h3>
+      <p class="text-gray-600 mb-4">Try adjusting your filters or search terms</p>
+      <a href="{{ url_for('results') }}" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium">
+        Clear Filters
+      </a>
+    </div>
+  </div>
 {% endif %}
 
 {% endblock %}

@@ -4,90 +4,142 @@
 {% block content %}
 
 <style>
-/* Background + layout */
+/* Updated background and typography for consistency */
 body {
-  background: #fdf5f2; /* light warm background */
-  padding-top: 90px;  /* to avoid navbar overlap */
-  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd);
+  font-family: "Inter", "Poppins", sans-serif;
+  color: #1f2937;
 }
 
-
-
-
-/* Section Title */
+/* Enhanced section titles with modern styling */
 .section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 2rem 0 1rem;
-  color: #593832;
-  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 3rem 0 1.5rem;
+  color: #1f2937;
   position: relative;
   animation: fadeInDown 0.8s ease-in-out;
 }
 .section-title::after {
   content: "";
   display: block;
-  width: 60%;
+  width: 80px;
   height: 4px;
-  margin-top: 6px;
-  background: linear-gradient(90deg, #593832, #8b5e50, #a97164);
+  margin-top: 8px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #10b981);
   border-radius: 2px;
 }
 
-/* Card Styling */
+/* Enhanced card styling with modern design */
 .card {
-  border: 1px solid #EBDDE2;
-  border-radius: 16px;
-  background: #ffffff;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
-}
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Text Colors */
-.text-primary   { color: #593832 !important; }
-.text-success   { color: #2e7d32 !important; }
-.text-warning   { color: #d97706 !important; }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb, #10b981, #f59e0b);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Enhanced stats cards with better colors */
+.stats-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #10b981);
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced text colors with better contrast */
+.text-primary   { color: #2563eb !important; }
+.text-success   { color: #10b981 !important; }
+.text-warning   { color: #f59e0b !important; }
+.text-danger    { color: #ef4444 !important; }
 .text-gray-500  { color: #6b7280 !important; }
 
-/* Buttons */
+/* Enhanced buttons with modern styling */
 .btn {
-  border-radius: 10px;
-  font-weight: 500;
-  transition: all 0.3s ease-in-out;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.5rem 1.5rem;
 }
+
 .btn-success {
-  background-color: #593832;
+  background: linear-gradient(135deg, #10b981, #059669);
   color: #fff;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 .btn-success:hover {
-  background-color: #402923;
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
+
 .btn-outline-primary {
-  border: 2px solid #593832;
-  color: #593832;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+  background: transparent;
 }
 .btn-outline-primary:hover {
-  background-color: #593832;
+  background: #2563eb;
   color: #fff;
+  transform: translateY(-2px);
 }
+
 .btn-secondary {
-  background-color: #9ca3af;
+  background: #6b7280;
   color: #fff;
 }
 
-/* Badges */
+/* Enhanced badges with better styling */
 .badge.bg-danger {
-  background: #dc2626 !important;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 /* Animations */
@@ -97,50 +149,57 @@ body {
 }
 </style>
 
-<h1 class="section-title">📊 Your Dashboard</h1>
+<!-- Enhanced dashboard header -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-8 mb-8 shadow-xl">
+  <h1 class="text-4xl font-bold mb-2">📊 Your Dashboard</h1>
+  <p class="text-blue-100 text-lg">Track your scholarship journey and manage applications</p>
+</div>
 
-<!-- Stats Section -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
-    <div class="text-sm text-gray-500">Total Applications</div>
-    <div class="text-3xl font-bold text-primary">{{ stats.total_applied }}</div>
+<!-- Enhanced stats section with modern cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+  <div class="stats-card">
+    <div class="text-sm text-gray-600 mb-2 font-medium">Total Applications</div>
+    <div class="text-4xl font-bold text-primary mb-2">{{ stats.total_applied }}</div>
+    <div class="text-xs text-gray-500">Scholarships applied to</div>
   </div>
-  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
-    <div class="text-sm text-gray-500">Deadlined (7 days)</div>
-    <div class="text-3xl font-bold text-red-600">{{ stats.deadlined }}</div>
+  <div class="stats-card">
+    <div class="text-sm text-gray-600 mb-2 font-medium">Closing Soon</div>
+    <div class="text-4xl font-bold text-danger mb-2">{{ stats.deadlined }}</div>
+    <div class="text-xs text-gray-500">Within 7 days</div>
   </div>
-  <div class="bg-white p-6 rounded-xl shadow text-center hover:shadow-lg transition">
-    <div class="text-sm text-gray-500">Saved Scholarships</div>
-    <div class="text-3xl font-bold text-primary">{{ stats.saved_count }}</div>
+  <div class="stats-card">
+    <div class="text-sm text-gray-600 mb-2 font-medium">Saved Scholarships</div>
+    <div class="text-4xl font-bold text-success mb-2">{{ stats.saved_count }}</div>
+    <div class="text-xs text-gray-500">Ready to apply</div>
   </div>
 </div>
 
-<!-- Saved Scholarships -->
+<!-- Enhanced saved scholarships section -->
 <h2 class="section-title">💾 Saved Scholarships</h2>
 {% if saved_scholarships %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
   {% for s in saved_scholarships %}
-  <div class="card shadow-sm">
-    <div class="card-body p-5">
-      <h5 class="card-title text-primary">{{ s.name }}</h5>
-      <p class="mt-2 text-gray-700">
-        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
-        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
-        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
-        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
-      </p>
+  <div class="card shadow-lg">
+    <div class="card-body p-6">
+      <h5 class="card-title text-primary mb-3">{{ s.name }}</h5>
+      <div class="space-y-2 text-sm text-gray-600 mb-4">
+        <p><span class="font-semibold">Field:</span> {{ s.get("field", "Any") }}</p>
+        <p><span class="font-semibold">Min Percentage:</span> {{ s.get("min_percentage", "0") }}%</p>
+        {% if s.get("amount") %}<p><span class="font-semibold">Amount:</span> <span class="text-success font-semibold">{{ s.amount }}</span></p>{% endif %}
+        {% if s.get("deadline") %}<p><span class="font-semibold">Deadline:</span> <span class="text-warning font-medium">{{ s.deadline }}</span></p>{% endif %}
+      </div>
     </div>
-    <div class="card-footer flex justify-between items-center p-3 bg-gray-50 rounded-b-xl">
+    <div class="card-footer flex justify-between items-center p-4 bg-gray-50 rounded-b-2xl">
       {% if s.is_closing_soon %}
-        <span class="badge bg-danger">Closing Soon</span>
+        <span class="badge bg-danger">⏰ Closing Soon</span>
       {% else %}
         <span>&nbsp;</span>
       {% endif %}
       <div>
         {% if s.id not in applied_ids %}
-          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success px-4 py-1">Apply</a>
+          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success">🚀 Apply</a>
         {% else %}
-          <button class="btn btn-secondary px-4 py-1" disabled>Applied</button>
+          <button class="btn btn-secondary" disabled>✅ Applied</button>
         {% endif %}
       </div>
     </div>
@@ -148,52 +207,60 @@ body {
   {% endfor %}
 </div>
 {% else %}
-<p class="text-gray-600">You haven't saved any scholarships yet.</p>
+<div class="text-center py-12">
+  <div class="text-6xl mb-4">💾</div>
+  <p class="text-gray-600 text-lg">You haven't saved any scholarships yet.</p>
+  <a href="{{ url_for('results') }}" class="btn btn-success mt-4">🔍 Find Scholarships</a>
+</div>
 {% endif %}
 
-<!-- Applied Scholarships -->
+<!-- Enhanced applied scholarships section -->
 <h2 class="section-title">✅ Applied Scholarships</h2>
 {% if applied_scholarships %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
   {% for s in applied_scholarships %}
-  <div class="card shadow-sm">
-    <div class="card-body p-5">
-      <h5 class="card-title text-success">{{ s.name }}</h5>
-      <p class="mt-2 text-gray-700">
-        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
-        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
-        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
-        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
-      </p>
+  <div class="card shadow-lg">
+    <div class="card-body p-6">
+      <h5 class="card-title text-success mb-3">{{ s.name }}</h5>
+      <div class="space-y-2 text-sm text-gray-600 mb-4">
+        <p><span class="font-semibold">Field:</span> {{ s.get("field", "Any") }}</p>
+        <p><span class="font-semibold">Min Percentage:</span> {{ s.get("min_percentage", "0") }}%</p>
+        {% if s.get("amount") %}<p><span class="font-semibold">Amount:</span> <span class="text-success font-semibold">{{ s.amount }}</span></p>{% endif %}
+        {% if s.get("deadline") %}<p><span class="font-semibold">Deadline:</span> <span class="text-warning font-medium">{{ s.deadline }}</span></p>{% endif %}
+      </div>
     </div>
-    <div class="card-footer text-right p-3 bg-gray-50 rounded-b-xl">
-      <button class="btn btn-secondary px-4 py-1" disabled>Applied</button>
+    <div class="card-footer text-right p-4 bg-green-50 rounded-b-2xl">
+      <button class="btn btn-secondary" disabled>✅ Applied</button>
     </div>
   </div>
   {% endfor %}
 </div>
 {% else %}
-<p class="text-gray-600">You haven't applied to any scholarships yet.</p>
+<div class="text-center py-12">
+  <div class="text-6xl mb-4">📝</div>
+  <p class="text-gray-600 text-lg">You haven't applied to any scholarships yet.</p>
+  <a href="{{ url_for('results') }}" class="btn btn-success mt-4">🎯 Start Applying</a>
+</div>
 {% endif %}
 
-<!-- Matched Scholarships -->
-<h2 class="section-title">🎯 Matched Scholarships</h2>
+<!-- Enhanced matched scholarships section -->
+<h2 class="section-title">🎯 Recommended Matches</h2>
 {% if matched_scholarships %}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {% for s in matched_scholarships %}
-  <div class="card shadow-sm">
-    <div class="card-body p-5">
-      <h5 class="card-title text-warning">{{ s.name }}</h5>
-      <p class="mt-2 text-gray-700">
-        <strong>Field:</strong> {{ s.get("field", "Any") }} <br>
-        <strong>Min Percentage:</strong> {{ s.get("min_percentage", "0") }}% <br>
-        {% if s.get("amount") %}<strong>Amount:</strong> {{ s.amount }} <br>{% endif %}
-        {% if s.get("deadline") %}<strong>Deadline:</strong> {{ s.deadline }}{% endif %}
-      </p>
+  <div class="card shadow-lg">
+    <div class="card-body p-6">
+      <h5 class="card-title text-warning mb-3">{{ s.name }}</h5>
+      <div class="space-y-2 text-sm text-gray-600 mb-4">
+        <p><span class="font-semibold">Field:</span> {{ s.get("field", "Any") }}</p>
+        <p><span class="font-semibold">Min Percentage:</span> {{ s.get("min_percentage", "0") }}%</p>
+        {% if s.get("amount") %}<p><span class="font-semibold">Amount:</span> <span class="text-success font-semibold">{{ s.amount }}</span></p>{% endif %}
+        {% if s.get("deadline") %}<p><span class="font-semibold">Deadline:</span> <span class="text-warning font-medium">{{ s.deadline }}</span></p>{% endif %}
+      </div>
     </div>
-    <div class="card-footer flex justify-between items-center p-3 bg-gray-50 rounded-b-xl">
+    <div class="card-footer flex justify-between items-center p-4 bg-yellow-50 rounded-b-2xl">
       {% if s.is_closing_soon %}
-        <span class="badge bg-danger">Closing Soon</span>
+        <span class="badge bg-danger">⏰ Closing Soon</span>
       {% else %}
         <span>&nbsp;</span>
       {% endif %}
@@ -201,16 +268,16 @@ body {
         {% if s.id not in saved_ids %}
         <form method="POST" action="{{ url_for('save_scholarship') }}">
           <input type="hidden" name="scholarship_id" value="{{ s.id }}">
-          <button type="submit" class="btn btn-outline-primary px-3 py-1">Save</button>
+          <button type="submit" class="btn btn-outline-primary">💾 Save</button>
         </form>
         {% else %}
-          <button class="btn btn-secondary px-3 py-1" disabled>Saved</button>
+          <button class="btn btn-secondary" disabled>✅ Saved</button>
         {% endif %}
 
         {% if s.id not in applied_ids %}
-          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success px-3 py-1">Apply</a>
+          <a href="{{ url_for('results', q=s.name) }}" class="btn btn-success">🚀 Apply</a>
         {% else %}
-          <button class="btn btn-secondary px-3 py-1" disabled>Applied</button>
+          <button class="btn btn-secondary" disabled>✅ Applied</button>
         {% endif %}
       </div>
     </div>
@@ -218,7 +285,11 @@ body {
   {% endfor %}
 </div>
 {% else %}
-<p class="text-gray-600">No scholarships match your latest profile yet.</p>
+<div class="text-center py-12">
+  <div class="text-6xl mb-4">🎯</div>
+  <p class="text-gray-600 text-lg">No new scholarship matches found.</p>
+  <a href="{{ url_for('form') }}" class="btn btn-success mt-4">🔄 Update Profile</a>
+</div>
 {% endif %}
 
 {% endblock %}

@@ -4,202 +4,251 @@
 {% block content %}
 
 <style>
-  /* Page Background */
+  /* Updated background and typography for better consistency */
   body {
-    background: linear-gradient(135deg, #593832, #8c5d53);
-    font-family: 'Segoe UI', sans-serif;
-    padding-top: 80px; /* avoid navbar overlap */
-    color: #fff;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: #1f2937;
   }
 
-  /* Card Container */
+  /* Enhanced card container with modern styling */
   .card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 2rem;
+    padding: 3rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
     animation: fadeInUp 0.8s ease-in-out;
-    color: #593832;
+    color: #1f2937;
   }
 
-  /* Gradient Text for Headings */
+  /* Enhanced gradient text with better colors */
   .text-gradient {
     display: inline-block;
-    background: linear-gradient(to right, #593832, #a97164, #e0b7a0);
+    background: linear-gradient(135deg, #2563eb, #3b82f6, #10b981);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
   }
 
-  /* Inputs & Selects */
+  /* Enhanced form inputs with modern styling */
   select, input {
     width: 100%;
-    border: 1px solid #593832;
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1rem;
     font-size: 1rem;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f9fafb;
   }
 
   select:focus, input:focus {
-    transform: scale(1.02);
-    border-color: #8b5e50;
-    box-shadow: 0 0 8px rgba(147, 86, 71, 0.5);
+    transform: translateY(-2px);
+    border-color: #2563eb;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
     outline: none;
+    background: #ffffff;
   }
 
-  /* Buttons & Links */
-  button, a {
-    transition: all 0.3s ease-in-out;
+  select:hover, input:hover {
+    border-color: #3b82f6;
+    background: #ffffff;
+  }
+
+  /* Enhanced buttons with better gradients */
+  button, .btn-gradient {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     font-weight: 600;
   }
 
-  button:hover, a:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+  button:hover, .btn-gradient:hover {
+    transform: translateY(-2px) scale(1.02);
   }
 
-  /* Gradient Buttons */
   .btn-gradient {
-    background: linear-gradient(to right, #593832, #a97164);
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
     color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
+    padding: 0.875rem 2rem;
+    border-radius: 0.875rem;
     border: none;
     font-size: 1rem;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
   }
 
-  /* Readonly Inputs */
+  .btn-gradient:hover {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+  }
+
+  /* Enhanced readonly inputs */
   .readonly {
-    background-color: #f3eaea;
+    background-color: #f3f4f6;
     opacity: 0.8;
     cursor: not-allowed;
+    border-color: #d1d5db;
   }
 
-  /* Section Animations */
+  /* Enhanced edit button styling */
+  .edit-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .edit-btn:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+  }
+
+  /* Animations */
   @keyframes fadeInUp {
-    from {opacity: 0; transform: translateY(20px);}
+    from {opacity: 0; transform: translateY(30px);}
     to {opacity: 1; transform: translateY(0);}
   }
 </style>
 
-<div class="card w-full max-w-3xl mx-auto">
-  <div class="flex items-center justify-between mb-8">
-    <h2 class="text-3xl font-extrabold text-gradient">🎓 ScholarMatch Profile</h2>
+<div class="card w-full max-w-4xl mx-auto">
+  <!-- Enhanced header with better spacing and modern design -->
+  <div class="flex items-center justify-between mb-10">
+    <div>
+      <h2 class="text-4xl font-bold text-gradient mb-2">🎓 Your Profile</h2>
+      <p class="text-gray-600 text-lg">Complete your profile to get personalized scholarship matches</p>
+    </div>
 
     {% if profile and readonly %}
-      <a href="{{ url_for('profile_edit') }}" class="px-4 py-2 border rounded-lg hover:bg-orange-100 transition duration-200">
-        ✏️ Edit
+      <a href="{{ url_for('profile_edit') }}" class="edit-btn">
+        ✏️ Edit Profile
       </a>
     {% endif %}
   </div>
 
-  <form method="POST" action="{{ url_for('submit_profile') }}" class="space-y-6">
+  <form method="POST" action="{{ url_for('submit_profile') }}" class="space-y-8">
 
     {% set ro = 'readonly disabled readonly cursor-not-allowed' if readonly else '' %}
 
-    <!-- Gender -->
-    <div>
-      <label class="block font-semibold mb-2">Gender</label>
-      <select name="gender" required class="{{ ro }}">
-        <option value="">Select</option>
-        {% for g in ['Male','Female','Other'] %}
-          <option {{ 'selected' if profile and profile.get('gender')==g else '' }}>{{ g }}</option>
-        {% endfor %}
-      </select>
+    <!-- Enhanced form sections with better organization -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Gender -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">👤 Gender</label>
+        <select name="gender" required class="{{ ro }}">
+          <option value="">Select Gender</option>
+          {% for g in ['Male','Female','Other'] %}
+            <option {{ 'selected' if profile and profile.get('gender')==g else '' }}>{{ g }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Education -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">🎓 Education Level</label>
+        <select name="education" required class="{{ ro }}">
+          <option value="">Select Education Level</option>
+          {% for e in ['5th','6th','7th','8th','9th','10th','12th','UG','PG'] %}
+            <option {{ 'selected' if profile and profile.get('education')==e else '' }}>{{ e }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
 
-    <!-- Education -->
-    <div>
-      <label class="block font-semibold mb-2">Education Level</label>
-      <select name="education" required class="{{ ro }}">
-        <option value="">Select</option>
-        {% for e in ['5th','6th','7th','8th','9th','10th','12th','UG','PG'] %}
-          <option {{ 'selected' if profile and profile.get('education')==e else '' }}>{{ e }}</option>
-        {% endfor %}
-      </select>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Category -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">🏷️ Category</label>
+        <select name="category" required class="{{ ro }}">
+          <option value="">Select Category</option>
+          {% for c in ['GEN','OBC','SC','ST','EWS','Minority'] %}
+            <option {{ 'selected' if profile and profile.get('category')==c else '' }}>{{ c }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Income -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">💰 Annual Family Income (₹)</label>
+        <input type="number" name="income" required class="{{ ro }}"
+               value="{{ profile.get('income') if profile else '' }}" placeholder="e.g., 250000">
+      </div>
     </div>
 
-    <!-- Category -->
-    <div>
-      <label class="block font-semibold mb-2">Caste / Category</label>
-      <select name="category" required class="{{ ro }}">
-        <option value="">Select</option>
-        {% for c in ['GEN','OBC','SC','ST','EWS','Minority'] %}
-          <option {{ 'selected' if profile and profile.get('category')==c else '' }}>{{ c }}</option>
-        {% endfor %}
-      </select>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- State -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">📍 State</label>
+        <input type="text" name="state" required class="{{ ro }}"
+               value="{{ profile.get('state') if profile else '' }}" placeholder="e.g., Maharashtra">
+      </div>
+
+      <!-- Date of Birth -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">📅 Date of Birth</label>
+        <input type="date" name="dob" required class="{{ ro }}"
+               value="{{ profile.get('dob') if profile else '' }}">
+      </div>
     </div>
 
-    <!-- Income -->
-    <div>
-      <label class="block font-semibold mb-2">Annual Family Income (₹)</label>
-      <input type="number" name="income" required class="{{ ro }}"
-             value="{{ profile.get('income') if profile else '' }}" placeholder="e.g., 250000">
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Religion -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">🕉️ Religion</label>
+        <select name="religion" required class="{{ ro }}">
+          <option value="">Select Religion</option>
+          {% for r in ['Hindu','Muslim','Christian','Sikh','Jain','Buddhist','Parsi','Other'] %}
+            <option {{ 'selected' if profile and profile.get('religion')==r else '' }}>{{ r }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Disability -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">♿ Differently Abled</label>
+        <select name="disability" required class="{{ ro }}">
+          <option value="">Select Option</option>
+          {% for d in ['Yes','No'] %}
+            <option {{ 'selected' if profile and profile.get('disability')==d else '' }}>{{ d }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
 
-    <!-- State -->
-    <div>
-      <label class="block font-semibold mb-2">State</label>
-      <input type="text" name="state" required class="{{ ro }}"
-             value="{{ profile.get('state') if profile else '' }}" placeholder="e.g., Andhra Pradesh">
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Course / Stream -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">📚 Course / Stream</label>
+        <input type="text" name="course" class="{{ ro }}"
+               value="{{ profile.get('course') if profile else '' }}" placeholder="e.g., Computer Science, Arts">
+      </div>
+
+      <!-- Marks / Percentage -->
+      <div>
+        <label class="block font-semibold mb-3 text-gray-700 text-lg">📊 Percentage / Marks (%)</label>
+        <input type="number" name="percentage" min="0" max="100" class="{{ ro }}"
+               value="{{ profile.get('percentage') if profile else '' }}" placeholder="e.g., 85">
+      </div>
     </div>
 
-    <!-- Date of Birth -->
-    <div>
-      <label class="block font-semibold mb-2">Date of Birth</label>
-      <input type="date" name="dob" required class="{{ ro }}"
-             value="{{ profile.get('dob') if profile else '' }}">
-    </div>
-
-    <!-- Religion -->
-    <div>
-      <label class="block font-semibold mb-2">Religion</label>
-      <select name="religion" required class="{{ ro }}">
-        <option value="">Select</option>
-        {% for r in ['Hindu','Muslim','Christian','Sikh','Jain','Buddhist','Parsi','Other'] %}
-          <option {{ 'selected' if profile and profile.get('religion')==r else '' }}>{{ r }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <!-- Disability -->
-    <div>
-      <label class="block font-semibold mb-2">Are you differently abled?</label>
-      <select name="disability" required class="{{ ro }}">
-        <option value="">Select</option>
-        {% for d in ['Yes','No'] %}
-          <option {{ 'selected' if profile and profile.get('disability')==d else '' }}>{{ d }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <!-- Course / Stream -->
-    <div>
-      <label class="block font-semibold mb-2">Course / Stream</label>
-      <input type="text" name="course" class="{{ ro }}"
-             value="{{ profile.get('course') if profile else '' }}" placeholder="e.g., B.Tech, Arts, MBBS">
-    </div>
-
-    <!-- Marks / Percentage -->
-    <div>
-      <label class="block font-semibold mb-2">Percentage / Marks (%)</label>
-      <input type="number" name="percentage" min="0" max="100" class="{{ ro }}"
-             value="{{ profile.get('percentage') if profile else '' }}" placeholder="e.g., 85">
-    </div>
-
-    <!-- Submit -->
-    <div class="text-center mt-8">
+    <!-- Enhanced submit section with better buttons -->
+    <div class="text-center mt-12 pt-8 border-t border-gray-200">
       {% if readonly %}
-        <a href="{{ url_for('profile_edit') }}" class="px-6 py-3 border rounded-lg hover:bg-orange-100 transition">Edit Profile</a>
-        <a href="{{ url_for('results') }}" class="ml-4 btn-gradient">
-          View Matches
-        </a>
+        <div class="flex justify-center gap-4">
+          <a href="{{ url_for('profile_edit') }}" class="edit-btn">
+            ✏️ Edit Profile
+          </a>
+          <a href="{{ url_for('results') }}" class="btn-gradient">
+            🎯 View Scholarship Matches
+          </a>
+        </div>
       {% else %}
-        <button type="submit" class="btn-gradient">
-          Save & Find Scholarships
+        <button type="submit" class="btn-gradient text-lg px-8 py-4">
+          💾 Save Profile & Find Scholarships
         </button>
       {% endif %}
     </div>

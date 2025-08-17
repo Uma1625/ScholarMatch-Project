@@ -2,67 +2,103 @@
 {% block title %}ScholarMatch – Smart Scholarship Finder{% endblock %}
 {% block content %}
 
-<!-- Hero Section -->
-<header class="bg-[#593832] text-white text-center py-16 rounded-lg shadow-lg">
-  <h1 class="text-5xl font-extrabold mb-4">🎓 ScholarMatch</h1>
-  <p class="text-lg max-w-2xl mx-auto">
-    Your personalized scholarship assistant — find the right scholarships based on your profile in just a few clicks.
-  </p>
-  <div class="mt-8 flex justify-center space-x-4">
-    <a href="{{ url_for('login') }}">
-      <button class="px-6 py-3 bg-white text-[#593832] font-semibold rounded-lg shadow hover:bg-gray-100 transition">
-        Log in to Search
-      </button>
-    </a>
-    <a href="{{ url_for('signup') }}">
-      <button class="px-6 py-3 border border-white font-semibold rounded-lg hover:bg-white hover:text-[#593832] transition">
-        Create Account
-      </button>
-    </a>
+<!-- Enhanced hero section with modern gradient and better typography -->
+<header class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-center py-20 rounded-3xl shadow-2xl mb-12 relative overflow-hidden">
+  <!-- Added animated background elements -->
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 animate-pulse"></div>
+  
+  <div class="relative z-10">
+    <h1 class="text-6xl font-extrabold mb-6 text-white drop-shadow-2xl">
+      🎓 ScholarMatch
+    </h1>
+    <p class="text-xl max-w-3xl mx-auto text-blue-100 drop-shadow-lg mb-8 leading-relaxed">
+      Your AI-powered scholarship companion that discovers, matches, and tracks opportunities perfectly tailored to your unique academic profile and financial needs.
+    </p>
+
+    <!-- Enhanced CTA buttons with better styling and spacing -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+      <a href="{{ url_for('login') }}">
+        <button class="px-8 py-4 bg-white text-blue-600 font-bold rounded-2xl shadow-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+          🚀 Log in to Search
+        </button>
+      </a>
+      <a href="{{ url_for('signup') }}">
+        <button class="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-2xl shadow-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+          ✨ Create Free Account
+        </button>
+      </a>
+    </div>
   </div>
 </header>
 
-<!-- Features Section -->
-<section class="py-16 px-6 text-center">
-  <h2 class="text-3xl font-bold mb-10 text-gray-800">Why Choose ScholarMatch?</h2>
-  <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+<!-- Enhanced features section with modern cards and better layout -->
+<section class="py-20 px-6 text-center">
+  <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+    Why Choose ScholarMatch?
+  </h2>
+  <p class="text-gray-600 text-lg mb-16 max-w-2xl mx-auto">
+    Join thousands of students who have already discovered their perfect scholarships through our intelligent platform
+  </p>
+  
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
     
-    <!-- Feature 1 -->
-    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
-      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Smart Matching</h3>
-      <p class="text-gray-600">
-        Get scholarships tailored to your income, education, and background instantly.
+    <!-- Enhanced feature cards with modern styling and better icons -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-blue-100 relative overflow-hidden group">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+      <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-blue-600 transition-colors">Smart AI Matching</h3>
+      <p class="text-gray-600 leading-relaxed">
+        Our advanced algorithm analyzes your academic profile, financial background, and career goals to instantly match you with the most relevant scholarships.
       </p>
     </div>
     
-    <!-- Feature 2 -->
-    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
-      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Email Notifications</h3>
-      <p class="text-gray-600">
-        Never miss an opportunity — we notify you before deadlines close.
+    <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-green-100 relative overflow-hidden group">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
+      <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">Real-time Notifications</h3>
+      <p class="text-gray-600 leading-relaxed">
+        Never miss a deadline again! Get instant alerts about closing dates, new matching scholarships, and important application updates directly to your inbox.
       </p>
     </div>
     
-    <!-- Feature 3 -->
-    <div class="bg-white rounded-lg shadow p-6 hover:shadow-xl transition hover:scale-105">
-      <h3 class="text-xl font-semibold mb-2 text-[#593832]">Dashboard Tracking</h3>
-      <p class="text-gray-600">
-        Save scholarships, track your progress, and stay organized in one place.
+    <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-purple-100 relative overflow-hidden group">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+      <div class="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">📊</div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-purple-600 transition-colors">Complete Dashboard</h3>
+      <p class="text-gray-600 leading-relaxed">
+        Save promising scholarships, track application progress, manage deadlines, and organize your entire scholarship journey from one comprehensive dashboard.
       </p>
     </div>
 
   </div>
 </section>
 
-<!-- Call to Action -->
-<section class="bg-[#F8EDEB] py-12 text-center rounded-lg shadow-inner mt-10">
-  <h2 class="text-2xl font-bold mb-4 text-[#593832]">Start Your Journey Today 🚀</h2>
-  <p class="text-gray-700 mb-6">Create your free account and unlock scholarships that match your profile.</p>
-  <a href="{{ url_for('signup') }}">
-    <button class="px-8 py-3 bg-[#593832] text-white font-semibold rounded-lg hover:bg-[#40282D] transition">
-      Get Started for Free
-    </button>
-  </a>
+<!-- Enhanced call to action section with modern design -->
+<section class="bg-gradient-to-r from-green-50 to-blue-50 py-16 text-center rounded-3xl shadow-inner mt-16 border border-green-100 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-green-100/50 to-blue-100/50"></div>
+  
+  <div class="relative z-10">
+    <div class="text-6xl mb-6">🚀</div>
+    <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+      Start Your Scholarship Journey Today
+    </h2>
+    <p class="text-gray-700 mb-8 text-lg max-w-2xl mx-auto leading-relaxed">
+      Join over 10,000+ students who have already discovered life-changing scholarship opportunities through ScholarMatch. Create your free account and unlock your potential.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="{{ url_for('signup') }}">
+        <button class="px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-2xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+          🎯 Get Started for Free
+        </button>
+      </a>
+      <a href="{{ url_for('login') }}">
+        <button class="px-10 py-4 border-2 border-blue-600 text-blue-600 font-bold rounded-2xl hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105">
+          📚 I Already Have an Account
+        </button>
+      </a>
+    </div>
+  </div>
 </section>
 
 {% endblock %}
