@@ -22,5 +22,5 @@ ScholarMatch is a full-stack web application that matches students with scholars
 
 1. **Clone the repo**
 ```bash
-git clone https://github.com/your-username/scholarmatch.git
+git clone https://github.com/uma1625/Scholarmatch-Project.git
 cd scholarmatch
